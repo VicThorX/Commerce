@@ -1,6 +1,6 @@
 ﻿namespace Commerce.Data.Configuration
 {
-    public class DatabaseConfiguration
+    public class MongoDBConfig
     {
         public string ConnectionString { get; set; }
         public string DatabaseName { get; set; }

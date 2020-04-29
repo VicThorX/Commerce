@@ -24,7 +24,7 @@ namespace Commerce.API.Controllers
 
         public async Task<ActionResult<List<User>>> Get()
         {
-            return await _userService.Get();
+            return await _userService.GetAll();
         }
 
         [HttpGet("{id:length(24)}", Name = "GetUser")]

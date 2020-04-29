@@ -12,45 +12,43 @@ namespace Commerce.Data.Services
 {
     public class UserService : IUserService
     {
-        private readonly IMongoCollection<User> _users;
+        private readonly ICommerceContext _commerceContext;
 
-        public UserService(IOptions<DatabaseConfiguration> configuration)
+        public UserService(ICommerceContext commerceContext)
         {
-            var mongoClient = new MongoClient(configuration.Value.ConnectionString);
-            var dataBase = mongoClient.GetDatabase(configuration.Value.DatabaseName);
-
-            _users = dataBase.GetCollection<User>("Users");
+            _commerceContext = commerceContext;
         }
 
-        public async Task<List<User>> Get()
+        public async Task<List<User>> GetAll()
         {
-            return await _users.Find(user => true).ToListAsync();
+            return await _commerceContext.Users.Find(user => true).ToListAsync();
         }
 
         public async Task<User> Get(string id)
         {
-            return await _users.Find(user => user.Id == id).FirstOrDefaultAsync();
+            return await _commerceContext.Users.Find(user => user.Id == id).FirstOrDefaultAsync();
         }
 
         public async Task<User> Create(User user)
         {
-            await _users.InsertOneAsync(user);
+            await _commerceContext.Users.InsertOneAsync(user);
+
             return user;
         }
 
         public async Task Update(string id, User userIn)
         {
-            await _users.ReplaceOneAsync(user => user.Id == id, userIn);
+            await _commerceContext.Users.ReplaceOneAsync(user => user.Id == id, userIn);
         }
 
         public async Task Remove(string id)
         {
-            await _users.DeleteOneAsync(user => user.Id == id);
+            await _commerceContext.Users.DeleteOneAsync(user => user.Id == id);
         }
 
         public async Task Remove(User userOut)
         {
-            await _users.DeleteOneAsync(user => user.Id == userOut.Id);
+            await _commerceContext.Users.DeleteOneAsync(user => user.Id == userOut.Id);
         }
     }
 }

@@ -7,7 +7,7 @@ namespace Commerce.Data.Services
     public interface IUserService
     {
         Task<User> Create(User user);
-        Task<List<User>> Get();
+        Task<List<User>> GetAll();
         Task<User> Get(string id);
         Task Remove(string id);
         Task Remove(User userOut);
