@@ -13,6 +13,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.OpenApi.Models;
 using MongoDB.Bson;
 
 namespace Commerce.API
@@ -37,6 +38,16 @@ namespace Commerce.API
             services.AddScoped<IUserService, UserService>();
 
             services.AddControllers();
+
+            services.AddSwaggerGen(options =>
+            {
+                options.SwaggerDoc("current", new OpenApiInfo
+                {
+                    Title = "E-Commerce API",
+                    Version = "current",
+                    Description = "Commerce API Endopints"
+                });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -56,6 +67,12 @@ namespace Commerce.API
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+            });
+
+            app.UseSwagger();
+            app.UseSwaggerUI(options =>
+            {
+                options.SwaggerEndpoint("/swagger/current/swagger.json", "Commerce API");
             });
         }
     }
