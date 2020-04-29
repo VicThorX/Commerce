@@ -8,9 +8,10 @@ namespace Commerce.Data.Services
     {
         Task<User> Create(User user);
         Task<List<User>> GetAll();
-        Task<User> Get(string id);
+        Task<User> Get(long id);
         Task Remove(string id);
         Task Remove(User userOut);
         Task Update(string id, User userIn);
+        Task<long> GetNextId();
     }
 }

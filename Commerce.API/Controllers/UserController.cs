@@ -10,6 +10,7 @@ using Microsoft.Extensions.Logging;
 namespace Commerce.API.Controllers
 {
     [ApiController]
+    [Produces("application/json")]
     [Route("[controller]")]
     public class UserController : ControllerBase
     {
@@ -22,13 +23,14 @@ namespace Commerce.API.Controllers
             _userService = userService;
         }
 
+        [HttpGet]
         public async Task<ActionResult<List<User>>> Get()
         {
-            return await _userService.GetAll();
+            return new ObjectResult(await _userService.GetAll());
         }
 
         [HttpGet("{id:length(24)}", Name = "GetUser")]
-        public async Task<ActionResult<User>> Get(string id)
+        public async Task<ActionResult<User>> Get(long id)
         {
             var user = await _userService.Get(id);
 
@@ -48,9 +50,11 @@ namespace Commerce.API.Controllers
                 if (ModelState.IsValid)
                 {
                     _logger.LogInformation("Creating new user named: {0}", user.Firstname);
+
+                    user.Id = await _userService.GetNextId();
                     var createdUser = await _userService.Create(user);
 
-                    return CreatedAtRoute("GetUser", new { id = user.Id }, user);
+                    return CreatedAtRoute("GetUser", new { id = user.InternalId }, user);
                 }
 
                 return BadRequest("User did not pass model validation");

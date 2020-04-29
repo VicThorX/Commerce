@@ -9,7 +9,12 @@ namespace Commerce.Data.Models
     {
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
-        public string Id { get; set; }
+        [BsonElement("InternalId")]
+        public string InternalId { get; set; }
+
+        [BsonElement("Id")]
+        [Required]
+        public long Id { get; set; }
 
         [BsonElement("Firstname")]
         [Required]
