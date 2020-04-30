@@ -4,13 +4,7 @@ using System.Threading.Tasks;
 
 namespace Commerce.Data.Services
 {
-    public interface IUserService
+    public interface IUserService : IBaseService<User>
     {
-        Task<User> Create(User user);
-        Task<List<User>> GetAll();
-        Task<User> Get(string id);
-        Task Remove(string id);
-        Task Remove(User userOut);
-        Task Update(string id, User userIn);
     }
 }

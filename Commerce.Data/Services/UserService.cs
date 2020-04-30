@@ -1,13 +1,7 @@
-﻿using System;
-using System.Linq;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
-using Commerce.Data.Configuration;
-using Commerce.Data.Models;
-using Microsoft.Extensions.Options;
+﻿using Commerce.Data.Models;
 using MongoDB.Driver;
-using MongoDB.Bson;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Commerce.Data.Services
 {
