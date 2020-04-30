@@ -64,5 +64,37 @@ namespace Commerce.API.Controllers
                 return BadRequest(ex);
             }
         }
+
+        [HttpPut("{id:length(24)}")]
+        public async Task<ActionResult<User>> Update(string id, User userIn)
+        {
+            var user = await _userService.Get(id);
+
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            userIn.Id = user.Id;
+
+            await _userService.Update(id, userIn);
+
+            return NoContent();
+        }
+
+        [HttpDelete("{id:length(24)}")]
+        public async Task<ActionResult<User>> Delete(string id)
+        {
+            var user = await _userService.Get(id);
+
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            await _userService.Remove(user);
+
+            return NoContent();
+        }
     }
 }
