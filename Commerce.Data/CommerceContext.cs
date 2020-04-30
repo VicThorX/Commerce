@@ -1,10 +1,7 @@
 ﻿using Commerce.Data.Configuration;
-using Commerce.Data.Models;
+using Commerce.Data.Entities;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Commerce.Data
 {

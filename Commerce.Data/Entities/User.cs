@@ -2,9 +2,8 @@
 using MongoDB.Bson.Serialization.Attributes;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 
-namespace Commerce.Data.Models
+namespace Commerce.Data.Entities
 {
     public class User
     {
@@ -13,19 +12,15 @@ namespace Commerce.Data.Models
         public string Id { get; set; }
 
         [BsonElement("Firstname")]
-        [Required]
         public string Firstname { get; set; }
 
         [BsonElement("Lastname")]
-        [Required]
         public string Lastname { get; set; }
 
         [BsonElement("EmailAddress")]
-        [Required]
         public string EmailAddress { get; set; }
 
         [BsonElement("Password")]
-        [Required]
         public string Password { get; set; }
 
         [BsonElement("Orders")]
@@ -35,11 +30,9 @@ namespace Commerce.Data.Models
         public bool HasPurchases { get; set; }
 
         [BsonElement("CreatedAt")]
-        [Required]
         public DateTime CreatedAt { get; set; }
 
         [BsonElement("UpdateAt")]
-        [Required]
         public DateTime UpdateAt { get; set; }
     }
 }

@@ -1,6 +1,4 @@
-﻿using Commerce.Data.Models;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using Commerce.Data.Entities;
 
 namespace Commerce.Data.Services
 {

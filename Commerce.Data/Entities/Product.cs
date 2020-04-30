@@ -1,17 +1,20 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
-using System.ComponentModel.DataAnnotations;
 
-namespace Commerce.Data.Models
+namespace Commerce.Data.Entities
 {
-    public class Category
+    public class Product
     {
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
         public string Id { get; set; }
 
-        [BsonElement("Name")]
-        [Required]
+        public Category Category { get; set; }
+
         public string Name { get; set; }
+
+        public decimal UnitPrice { get; set; }
+
+        public decimal SalePrice { get; set; }
     }
 }

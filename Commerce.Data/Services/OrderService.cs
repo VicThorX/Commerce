@@ -1,4 +1,4 @@
-﻿using Commerce.Data.Models;
+﻿using Commerce.Data.Entities;
 using MongoDB.Driver;
 using System.Collections.Generic;
 using System.Threading.Tasks;

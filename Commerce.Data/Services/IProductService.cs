@@ -1,4 +1,4 @@
-﻿using Commerce.Data.Models;
+﻿using Commerce.Data.Entities;
 
 namespace Commerce.Data.Services
 {
