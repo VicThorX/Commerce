@@ -15,10 +15,13 @@ namespace Commerce.Data.Entities
         public User User { get; set; }
 
         [BsonElement("Concepts")]
-        public List<Concept> Concepts { get; set; }
+        public List<Concept> Concepts { get; set; } = new List<Concept>();
 
         [BsonElement("CreatedAt")]
         public DateTime CreatedAt { get; set; }
+
+        [BsonElement("UpdateAt")]
+        public DateTime UpdateAt { get; set; }
 
         [BsonElement("Total")]
         public decimal Total { get; set; }

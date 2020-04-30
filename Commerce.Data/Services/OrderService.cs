@@ -28,6 +28,11 @@ namespace Commerce.Data.Services
         {
             await _commerceContext.Orders.InsertOneAsync(order);
 
+            var userWithNewOrder = order.User;
+            userWithNewOrder.Orders.Add(order);
+
+            await _commerceContext.Users.ReplaceOneAsync(user => user.Id == order.User.Id, userWithNewOrder);
+
             return order;
         }
 
