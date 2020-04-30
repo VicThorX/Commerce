@@ -30,7 +30,7 @@ namespace Commerce.API.Controllers
         }
 
         [HttpGet("{id:length(24)}", Name = "GetUser")]
-        public async Task<ActionResult<User>> Get(long id)
+        public async Task<ActionResult<User>> Get(string id)
         {
             var user = await _userService.Get(id);
 
@@ -51,10 +51,9 @@ namespace Commerce.API.Controllers
                 {
                     _logger.LogInformation("Creating new user named: {0}", user.Firstname);
 
-                    user.Id = await _userService.GetNextId();
                     var createdUser = await _userService.Create(user);
 
-                    return CreatedAtRoute("GetUser", new { id = user.InternalId }, user);
+                    return CreatedAtRoute("GetUser", new { id = user.Id }, user);
                 }
 
                 return BadRequest("User did not pass model validation");

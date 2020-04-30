@@ -9,12 +9,8 @@ namespace Commerce.Data.Models
     {
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
-        [BsonElement("InternalId")]
-        public string InternalId { get; set; }
-
         [BsonElement("Id")]
-        [Required]
-        public long Id { get; set; }
+        public string Id { get; set; }
 
         [BsonElement("Firstname")]
         [Required]
@@ -33,7 +29,6 @@ namespace Commerce.Data.Models
         public string Password { get; set; }
 
         [BsonElement("HasPurchases")]
-        [Required]
         public bool HasPurchases { get; set; }
 
         [BsonElement("CreatedAt")]
