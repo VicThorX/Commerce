@@ -1,4 +1,6 @@
-﻿using Commerce.Data.Entities;
+﻿using Commerce.API.Mappers;
+using Commerce.API.Models;
+using Commerce.Data.Entities;
 using Commerce.Data.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -15,11 +17,16 @@ namespace Commerce.API.Controllers
     {
         private readonly ILogger<UserController> _logger;
         private readonly IUserService _userService;
+        private readonly IMapper<UserModel, User> _userMapper;
 
-        public UserController(ILogger<UserController> logger, IUserService userService)
+        public UserController(
+            ILogger<UserController> logger, 
+            IUserService userService,
+            IMapper<UserModel, User> userMapper)
         {
             _logger = logger;
             _userService = userService;
+            _userMapper = userMapper;
         }
 
         [HttpGet]
@@ -42,41 +49,46 @@ namespace Commerce.API.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<User>> Create(User user)
+        public async Task<ActionResult<User>> Create(UserModel userModel)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    _logger.LogInformation("Creating new user named: {0}", user.Firstname);
+                    _logger.LogInformation("Creating new user named: {0}", userModel.Firstname);
 
-                    var createdUser = await _userService.Create(user);
+                    var userToCreate = _userMapper.Map(userModel);
+                    userToCreate.CreatedAt = DateTime.Now;
+                    userToCreate.UpdateAt = DateTime.Now;
 
-                    return CreatedAtRoute("GetUser", new { id = user.Id }, user);
+                    var createdUser = await _userService.Create(userToCreate);
+
+                    return CreatedAtRoute("GetUser", new { id = createdUser.Id }, userModel);
                 }
 
                 return BadRequest("User did not pass model validation");
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Error creating new user. User object: {0}", user);
+                _logger.LogError(ex, "Error creating new user. User object: {0}", userModel);
                 return BadRequest(ex);
             }
         }
 
         [HttpPut("{id:length(24)}")]
-        public async Task<ActionResult<User>> Update(string id, User userIn)
+        public async Task<ActionResult<User>> Update(string id, UserModel userModel)
         {
-            var user = await _userService.Get(id);
+            var userToUpdate = await _userService.Get(id);
 
-            if (user == null)
+            if (userToUpdate == null)
             {
                 return NotFound();
             }
 
-            userIn.Id = user.Id;
+            _userMapper.Fill(userModel, userToUpdate);
+            userToUpdate.UpdateAt = DateTime.Now;
 
-            await _userService.Update(id, userIn);
+            await _userService.Update(id, userToUpdate);
 
             return NoContent();
         }

@@ -20,6 +20,11 @@ namespace Commerce.Data.Entities
         [BsonElement("EmailAddress")]
         public string EmailAddress { get; set; }
 
+        [BsonElement("PhoneNumber")]
+        public string PhoneNumber { get; set; }
+
+        public Address Address { get; set; }
+
         [BsonElement("Password")]
         public string Password { get; set; }
 

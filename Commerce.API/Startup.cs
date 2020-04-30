@@ -1,5 +1,8 @@
+using Commerce.API.Mappers;
+using Commerce.API.Models;
 using Commerce.Data;
 using Commerce.Data.Configuration;
+using Commerce.Data.Entities;
 using Commerce.Data.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -31,6 +34,9 @@ namespace Commerce.API
             services.AddScoped<IOrderService, OrderService>();
             services.AddScoped<ICategoryService, CategoryService>();
             services.AddScoped<IProductService, ProductService>();
+
+            // API Mappers
+            services.AddSingleton<IMapper<UserModel, User>, UserModelToUser>();
 
             services.AddControllers();
 
