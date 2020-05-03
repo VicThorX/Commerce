@@ -20,7 +20,7 @@ namespace Commerce.API.Controllers
         private readonly IMapper<OrderModel, Order> _orderMapper;
 
         public OrderController(
-            ILogger<OrderController> logger, 
+            ILogger<OrderController> logger,
             IOrderService orderService,
             IMapper<OrderModel, Order> orderMapper)
         {
