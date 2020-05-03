@@ -16,6 +16,9 @@ namespace Commerce.Data.Entities
         [BsonElement("Name")]
         public string Name { get; set; }
 
+        [BsonElement("IsRoot")]
+        public bool IsRoot { get; set; }
+
         [BsonElement("CreatedAt")]
         public DateTime CreatedAt { get; set; }
 

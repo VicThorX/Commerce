@@ -1,10 +1,6 @@
 ﻿using Commerce.API.Models;
 using Commerce.Data.Entities;
 using Commerce.Data.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Commerce.API.Mappers
 {

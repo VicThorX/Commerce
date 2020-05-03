@@ -20,7 +20,7 @@ namespace Commerce.API.Controllers
         private readonly IMapper<UserModel, User> _userMapper;
 
         public UserController(
-            ILogger<UserController> logger, 
+            ILogger<UserController> logger,
             IUserService userService,
             IMapper<UserModel, User> userMapper)
         {
