@@ -49,6 +49,11 @@ namespace Commerce.Data.Services
         public async Task Remove(Order orderOut)
         {
             await _commerceContext.Orders.DeleteOneAsync(order => order.Id == orderOut.Id);
+
+            var userWithDeletedOrder = orderOut.User;
+            userWithDeletedOrder.Orders.Remove(orderOut);
+
+            await _commerceContext.Users.ReplaceOneAsync(user => user.Id == orderOut.User.Id, userWithDeletedOrder);
         }
     }
 }

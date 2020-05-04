@@ -1,25 +1,43 @@
 ﻿using Commerce.API.Models;
 using Commerce.Data.Entities;
+using Commerce.Data.Services;
 
 namespace Commerce.API.Mappers
 {
     public class CategoryModelToCategory : IMapper<CategoryModel, Category>
     {
+        private readonly ICategoryService _categoryService;
+
+        public CategoryModelToCategory(ICategoryService categoryService)
+        {
+            _categoryService = categoryService
+        }
+
         public void Fill(CategoryModel input, Category output)
         {
             output.Name = input.Name;
-            output.SubCategories = input.SubCategories;
+
+            foreach (var categoryId in input.SubCategoryIds)
+            {
+                var category = _categoryService.Get(categoryId).Result;
+                output.SubCategories.Add(category);
+            }
         }
 
         public Category Map(CategoryModel input)
         {
-            var category = new Category()
+            var output = new Category()
             {
-                Name = input.Name,
-                SubCategories = input.SubCategories
+                Name = input.Name
             };
 
-            return category;
+            foreach (var categoryId in input.SubCategoryIds)
+            {
+                var category = _categoryService.Get(categoryId).Result;
+                output.SubCategories.Add(category);
+            }
+
+            return output;
         }
     }
 }
