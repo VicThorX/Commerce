@@ -10,7 +10,7 @@ namespace Commerce.API.Mappers
 
         public CategoryModelToCategory(ICategoryService categoryService)
         {
-            _categoryService = categoryService
+            _categoryService = categoryService;
         }
 
         public void Fill(CategoryModel input, Category output)

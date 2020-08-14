@@ -27,18 +27,23 @@ namespace Commerce.API
         {
             services.Configure<MongoDBConfig>(Configuration.GetSection(nameof(MongoDBConfig)));
 
-            services.AddScoped<ICommerceContext, CommerceContext>();
+            services.AddSingleton<ICommerceContext, CommerceContext>();
 
             // API Services
-            services.AddScoped<IUserService, UserService>();
-            services.AddScoped<IOrderService, OrderService>();
-            services.AddScoped<ICategoryService, CategoryService>();
-            services.AddScoped<IProductService, ProductService>();
+            services.AddSingleton<IUserService, UserService>();
+            services.AddSingleton<IOrderService, OrderService>();
+            services.AddSingleton<ICategoryService, CategoryService>();
+            services.AddSingleton<IProductService, ProductService>();
 
             // API Mappers
             services.AddSingleton<IMapper<UserModel, User>, UserModelToUser>();
+            services.AddSingleton<IMapper<OrderModel, Order>, OrderModelToOrder>();
+            services.AddSingleton<IMapper<CategoryModel, Category>, CategoryModelToCategory>();
+            services.AddSingleton<IMapper<ProductModel, Product>, ProductModelToProduct>();
 
-            services.AddControllers();
+            services.AddControllers().AddNewtonsoftJson(options =>
+                options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+            );
 
             services.AddSwaggerGen(options =>
             {
